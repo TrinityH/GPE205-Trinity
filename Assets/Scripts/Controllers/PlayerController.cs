@@ -1,21 +1,36 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class PlayerController : Controller
 {
+    public KeyCode shootKey;
     public KeyCode moveForwardKey;
     public KeyCode moveBackwardKey;
     public KeyCode rotateClockwiseKey;
     public KeyCode rotateCounterClockwiseKey;
     public KeyCode rotateUpKey;
     public KeyCode rotateDownKey;
+    // List that holds our players
+    public List<PlayerController> players;
 
     // Start is called before the first frame update
     public override void Start()
     {
+        //If we have a GameManager
+        if (GameManager.instance != null)
+        {
+            //And it tracks the players
+            if (GameManager.instance.players != null)
+            {
+                //Register with the GameManager
+                GameManager.instance.players.Add(this);
+            }
+        }
         //Run the start function from the parent(base) class
         base.Start();
+        
     }
 
     // Update is called once per frame
@@ -59,5 +74,24 @@ public class PlayerController : Controller
             pawn.RotateDown();
         }
 
+        if (Input.GetKeyDown(shootKey))
+        {
+            pawn.Shoot();
+        }
+
+    }
+
+    public void OnDestroy()
+    {
+        //If we have a GameManager
+        if (GameManager.instance != null)
+        {
+            // And it tracks the players
+            if(GameManager.instance.players != null)
+            {
+                // Deregister with the GameManager
+                GameManager.instance.players.Remove(this);
+            }
+        }
     }
 }
