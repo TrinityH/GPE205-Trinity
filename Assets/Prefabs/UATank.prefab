@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6878578800087707875}
   - component: {fileID: 6878578800087707903}
   - component: {fileID: 6878578800087707900}
+  - component: {fileID: 7946632504761799623}
   m_Layer: 0
   m_Name: UATank
   m_TagString: Untagged
@@ -140,6 +141,7 @@ MonoBehaviour:
   rotateCounterClockwiseKey: 100
   rotateUpKey: 0
   rotateDownKey: 0
+  boost: 0
   players: []
 --- !u!114 &6878578800087707874
 MonoBehaviour:
@@ -165,14 +167,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21416d50de04c7948bba87df79608601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireRate: 0
   moveSpeed: 0
   turnSpeed: 0
+  boostSpeed: 0
   mover: {fileID: 6878578800087707874}
   Bullet: {fileID: 3597549463102201254, guid: c5fd48739806158459fa7ffc8521167a, type: 3}
   fireForce: 1000
   damageDone: 10
   shellLifespan: 1.5
   shooter: {fileID: 6878578800087707900}
+  noiseMaker: {fileID: 0}
+  noiseMakerVolume: 0
 --- !u!114 &6878578800087707903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +206,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firepointTransform: {fileID: 6079058381893621780}
-  TimerDelay: 1
+--- !u!114 &7946632504761799623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194305506377171268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf835851d5c4b6419db8fbaade4e124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6079058381893621778
 GameObject:
   m_ObjectHideFlags: 0

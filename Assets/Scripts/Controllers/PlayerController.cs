@@ -12,6 +12,7 @@ public class PlayerController : Controller
     public KeyCode rotateCounterClockwiseKey;
     public KeyCode rotateUpKey;
     public KeyCode rotateDownKey;
+    public KeyCode boost;
     // List that holds our players
     public List<PlayerController> players;
 
@@ -47,36 +48,59 @@ public class PlayerController : Controller
         if (Input.GetKey(moveForwardKey))
         {
             pawn.MoveForward();
+            pawn.MakeNoise();
         }
 
         if (Input.GetKey(moveBackwardKey))
         {
             pawn.MoveBackward();
+            pawn.MakeNoise();
         }
 
         if (Input.GetKey(rotateClockwiseKey))
         {
             pawn.RotateClockwise();
+            pawn.MakeNoise();
         }
 
         if(Input.GetKey(rotateCounterClockwiseKey))
         {
             pawn.RotateCounterClockwise();
+            pawn.MakeNoise();
         }
 
         if(Input.GetKey(rotateUpKey))
         {
             pawn.RotateUp();
+            pawn.MakeNoise();
         }
 
         if(Input.GetKey(rotateDownKey))
         {
             pawn.RotateDown();
+            pawn.MakeNoise();
         }
 
         if (Input.GetKeyDown(shootKey))
         {
             pawn.Shoot();
+            pawn.MakeNoise();
+        }
+
+        if (Input.GetKeyDown(boost))
+        {
+            pawn.Boost();
+            pawn.MakeNoise();
+        }
+
+        if (Input.GetKeyUp(boost))
+        {
+            pawn.NoBoost();
+        }
+
+        if(!Input.GetKey(moveForwardKey) && !Input.GetKey(moveBackwardKey) && !Input.GetKey(shootKey) && !Input.GetKey(rotateClockwiseKey) && !Input.GetKey(rotateCounterClockwiseKey))
+        {
+            pawn.StopNoise();
         }
 
     }

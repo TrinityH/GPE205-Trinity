@@ -4,14 +4,17 @@ using UnityEngine;
 
 public abstract class Pawn : MonoBehaviour
 {
+    public float fireRate;
     public float moveSpeed;
     public float turnSpeed;
+    public float boostSpeed;
     public Mover mover;
     // Start is called before the first frame update
     public virtual void Start()
     {
         mover = GetComponent<Mover>();
         shooter = GetComponent<Shooter>();
+        noiseMaker = GetComponent<NoiseMaker>();
     }
 
     // Update is called once per frame
@@ -31,6 +34,13 @@ public abstract class Pawn : MonoBehaviour
 
     //Variable for GameObject Shooter
     public Shooter shooter;
+
+    //Variable for NoiseMaker
+    public NoiseMaker noiseMaker;
+
+    //Get the volume for our NoiseMaker
+    public float noiseMakerVolume;
+
     //Functions for Movement
     public abstract void MoveForward();
     public abstract void MoveBackward();
@@ -42,8 +52,17 @@ public abstract class Pawn : MonoBehaviour
 
     public abstract void RotateDown();
 
+    public abstract void Boost();
+
+    public abstract void NoBoost();
+
     //Function for Shooting
     public abstract void Shoot();
 
     public abstract void RotateTowards(Vector3 targetPosition);
+
+    public abstract void MakeNoise();
+
+    public abstract void StopNoise();
+
 }

@@ -13,6 +13,8 @@ public class AIController : Controller
     public Transform[] waypoints;
     public float waypointStopDistance;
     private int currentWaypoint = 0;
+    public float hearingDistance;
+    public float fieldOfView;
     // Start is called before the first frame update
     public override void Start()
     {
@@ -40,14 +42,15 @@ public class AIController : Controller
                 // Check for transitions
                 if (IsHasTarget() == false)
                 {
+                    ChangeState(AIStates.Seek);
                     ChangeState(AIStates.ChooseTarget);
                 }
-                if (IsDistanceLessThan(target, 20))
+                if (!IsDistanceLessThan(target, fleeDistance))
                 {
                     ChangeState(AIStates.Attack);
                 }
 
-                else if (IsDistanceLessThan(target, 10))
+                else if (IsDistanceLessThan(target, fleeDistance))
                 {
                     ChangeState(AIStates.Flee);
                 }
@@ -60,12 +63,12 @@ public class AIController : Controller
                 {
                     ChangeState(AIStates.ChooseTarget);
                 }
-                if (!IsDistanceLessThan(target, 20))
+                if (!IsDistanceLessThan(target, fleeDistance))
                 {
                     ChangeState(AIStates.Idle);
                 }
 
-                else if (!IsDistanceLessThan(target, 10))
+                else if (!IsDistanceLessThan(target, fleeDistance))
                 {
                     ChangeState(AIStates.Flee);
                 }
@@ -74,17 +77,17 @@ public class AIController : Controller
 
                 DoFleeState();
 
-                if (IsHasTarget() == false)
+                if (IsHasTarget() == false && IsCanHear(target) == true && IsCanSee(target) == true)
                 {
                     ChangeState(AIStates.ChooseTarget);
                 }
 
-                if (!IsDistanceLessThan(target, 20))
+                if (!IsDistanceLessThan(target, fleeDistance))
                 {
                     ChangeState(AIStates.Idle);
                 }
 
-                else if (!IsDistanceLessThan(target, 10))
+                else if (!IsDistanceLessThan(target, fleeDistance))
                 {
                     ChangeState(AIStates.Attack);
                 }
@@ -95,12 +98,12 @@ public class AIController : Controller
 
                 if (IsHasTarget() == true)
                 {
-                    if (IsDistanceLessThan(target, 20))
+                    if (IsDistanceLessThan(target, fleeDistance))
                     {
                         ChangeState(AIStates.Attack);
                     }
 
-                    else if (IsDistanceLessThan(target, 10))
+                    else if (!IsDistanceLessThan(target, fleeDistance))
                     {
                         ChangeState(AIStates.Flee);
                     }
@@ -295,6 +298,52 @@ public class AIController : Controller
 
         // Target the closest tank
         target = closestTank.gameObject;
+    }
+
+    protected bool IsCanHear(GameObject target)
+    {
+        // Get the target's NoiseMaker
+        NoiseMaker noiseMaker = target.GetComponent<NoiseMaker>();
+        // If they don't have one, they can't make noise, so return false
+        if (noiseMaker == null)
+        {
+            return false;
+        }
+        // If they are making 0 noise, they also can't be heard
+        if (noiseMaker.volumeDistance <= 0)
+        {
+            return false;
+        }
+        // If they are making noise, add the volumeDistance in the noisemaker to the hearingDistance of this AI
+        float totalDistance = noiseMaker.volumeDistance + hearingDistance;
+        // If the distance between our pawn and target is closer than this...
+        if (Vector3.Distance(pawn.transform.position, target.transform.position) <= totalDistance)
+        {
+            // ... then we can hear the target
+            return true;
+        }
+        else
+        {
+            // Otherwise, we are too far away to hear them
+            return false;
+        }
+    }
+
+    protected bool IsCanSee(GameObject target)
+    {
+        // Find the vector from the agent to the target
+        Vector3 agentToTargetVector = target.transform.position - transform.position;
+        // Find the angle between the direction our agent is facing (forward in local space) and the vector to the target.
+        float angleToTarget = Vector3.Angle(agentToTargetVector, pawn.transform.forward);
+        // if that angle is less than our field of view
+        if (angleToTarget < fieldOfView)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 

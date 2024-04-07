@@ -24,11 +24,23 @@ public class Health : MonoBehaviour
     public void TakeDamage(float amount, Pawn owner)
     {
         currentHealth = currentHealth - amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         if(currentHealth <= 0)
         {
-            Destroy(gameObject);
+            Die(owner);
         }
+    }
+
+    public void Heal(float amount, Pawn owner)
+    {
+        currentHealth = currentHealth + amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    }
+
+    public void Die(Pawn owner)
+    {
+        Destroy(gameObject);
     }
 
 

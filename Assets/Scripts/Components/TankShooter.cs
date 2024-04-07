@@ -5,24 +5,24 @@ using UnityEngine;
 public class TankShooter : Shooter
 {
     public Transform firepointTransform;
-    public float TimerDelay = 1.0f;
-    private float TimeUntilNextEvent;
+    //public float TimerDelay = 3.0f;
+    //private float TimeUntilNextEvent;
 
     // Start is called before the first frame update
     public override void Start()
     {
-        TimeUntilNextEvent = TimerDelay;
+        //TimeUntilNextEvent = TimerDelay;
     }
 
     // Update is called once per frame
     public override void Update()
     {
-        TimeUntilNextEvent -= Time.deltaTime;
+       /*TimeUntilNextEvent -= Time.deltaTime;
         if (TimeUntilNextEvent <= 0)
         {
             Debug.Log("Time!");
             TimeUntilNextEvent = TimerDelay;
-        }
+        }*/
     }
 
     public override void Shoot(GameObject Bullet, float fireForce, float damageDone, float lifespan)

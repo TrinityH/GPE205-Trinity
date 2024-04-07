@@ -4,9 +4,25 @@ using UnityEngine;
 
 public class TankPawn : Pawn
 {
+    private float nextEventTime;
+    private float timerDelay;
     // Start is called before the first frame update
     public override void Start()
     {
+        float secondsPerShot;
+
+        if(fireRate <= 0)
+        {
+            secondsPerShot = Mathf.Infinity;
+        }
+        else
+        {
+            secondsPerShot = 1 / fireRate;
+        }
+
+        timerDelay = secondsPerShot;
+        nextEventTime = Time.time + timerDelay;
+
         base.Start();
     }
 
@@ -19,21 +35,21 @@ public class TankPawn : Pawn
 
     public override void MoveForward()
     {
-        mover.Move(transform.forward, 5);
+        mover.Move(transform.forward, moveSpeed);
     }
     public override void MoveBackward()
     {
-        mover.Move(transform.forward, -5);
+        mover.Move(transform.forward, -moveSpeed);
     }
 
     public override void RotateClockwise()
     {
-        mover.Rotate(360);
+        mover.Rotate(turnSpeed);
     }
 
     public override void RotateCounterClockwise()
     {
-        mover.Rotate(-360);
+        mover.Rotate(-turnSpeed);
     }
 
     public override void RotateUp()
@@ -50,9 +66,24 @@ public class TankPawn : Pawn
 
     public override void Shoot()
     {
-        shooter.Shoot(Bullet, fireForce, damageDone, shellLifespan);
+        if(Time.time >= nextEventTime)
+        {
+            shooter.Shoot(Bullet, fireForce, damageDone, shellLifespan);
+            nextEventTime = Time.time + timerDelay;
+        }
+        
     }
 
+
+    public override void Boost()
+    {
+        moveSpeed += boostSpeed;
+    }
+
+    public override void NoBoost()
+    {
+        moveSpeed -= boostSpeed;
+    }
     public override void RotateTowards(Vector3 targetPosition)
     {
         // Find the vector to our target
@@ -61,5 +92,21 @@ public class TankPawn : Pawn
         Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget, Vector3.up);
         // Rotate closer to that vector, but don't rotate more than our turn speed allows in one frame
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+    }
+
+    public override void MakeNoise()
+    {
+        if (noiseMaker != null)
+        {
+            noiseMaker.volumeDistance = noiseMakerVolume;
+        }
+    }
+
+    public override void StopNoise()
+    {
+        if(noiseMaker != null)
+        {
+            noiseMaker.volumeDistance = 0;
+        }
     }
 }
