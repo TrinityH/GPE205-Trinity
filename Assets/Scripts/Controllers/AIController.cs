@@ -10,6 +10,7 @@ public class AIController : Controller
     private float lastStateChangeTime;
     public GameObject target;
     public float fleeDistance;
+    public float attackDistance;
     public Transform[] waypoints;
     public float waypointStopDistance;
     private int currentWaypoint = 0;
@@ -54,6 +55,10 @@ public class AIController : Controller
                 {
                     ChangeState(AIStates.Flee);
                 }
+                else
+                {
+                    ChangeState(AIStates.Patrol);
+                }
                 break;
             case AIStates.Attack:
                 // Do work
@@ -68,7 +73,7 @@ public class AIController : Controller
                     ChangeState(AIStates.Idle);
                 }
 
-                else if (!IsDistanceLessThan(target, fleeDistance))
+                else if (IsDistanceLessThan(target, fleeDistance))
                 {
                     ChangeState(AIStates.Flee);
                 }
@@ -209,6 +214,19 @@ public class AIController : Controller
 
     }
 
+    protected bool IsDistanceGreaterThan(GameObject target, float distance)
+    {
+        if (Vector3.Distance(pawn.transform.position, target.transform.position) > distance)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
     protected void Flee()
     {
         // Find the Vector to our target
@@ -302,29 +320,36 @@ public class AIController : Controller
 
     protected bool IsCanHear(GameObject target)
     {
+        //Debug.Log("Working");
         // Get the target's NoiseMaker
         NoiseMaker noiseMaker = target.GetComponent<NoiseMaker>();
         // If they don't have one, they can't make noise, so return false
         if (noiseMaker == null)
         {
+            Debug.Log("Is null");
             return false;
         }
         // If they are making 0 noise, they also can't be heard
         if (noiseMaker.volumeDistance <= 0)
         {
+            Debug.Log("I can't hear you!");
             return false;
         }
         // If they are making noise, add the volumeDistance in the noisemaker to the hearingDistance of this AI
         float totalDistance = noiseMaker.volumeDistance + hearingDistance;
+        Debug.Log("Distance added");
         // If the distance between our pawn and target is closer than this...
         if (Vector3.Distance(pawn.transform.position, target.transform.position) <= totalDistance)
         {
             // ... then we can hear the target
+            Debug.Log("I can hear you!!");
             return true;
+            
         }
         else
         {
             // Otherwise, we are too far away to hear them
+            Debug.Log("I cannot hear you!!");
             return false;
         }
     }
@@ -338,10 +363,12 @@ public class AIController : Controller
         // if that angle is less than our field of view
         if (angleToTarget < fieldOfView)
         {
+            Debug.Log("I can see you!!");
             return true;
         }
         else
         {
+            Debug.Log("I cannot see you!!");
             return false;
         }
     }

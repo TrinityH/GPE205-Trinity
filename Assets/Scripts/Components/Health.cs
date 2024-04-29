@@ -9,6 +9,7 @@ public class Health : MonoBehaviour
     //Health variables
     public float currentHealth;
     public float maxHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +42,9 @@ public class Health : MonoBehaviour
     public void Die(Pawn owner)
     {
         Destroy(gameObject);
+        PlayerController player = GetComponent<PlayerController>();
+        player.lives -= 1;
+        Debug.Log(player.lives);
     }
 
 

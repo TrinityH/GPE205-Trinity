@@ -104,9 +104,8 @@ public class TankPawn : Pawn
 
     public override void StopNoise()
     {
-        if(noiseMaker != null)
-        {
+        
             noiseMaker.volumeDistance = 0;
-        }
+        
     }
 }

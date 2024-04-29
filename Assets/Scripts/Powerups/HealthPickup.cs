@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealthPickup : MonoBehaviour
 {
     public HealthPowerUp powerup;
+    public GameObject particleEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,9 +28,15 @@ public class HealthPickup : MonoBehaviour
         {
             // Add the powerup
             powerupManager.Add(powerup);
-
+            //Start particles
+            particleEffect.SetActive(true);
+            //Debug
+            Debug.Log("Particles are particling!");
             // Destroy this pickup
             Destroy(gameObject);
         }
+
     }
+
+
 }

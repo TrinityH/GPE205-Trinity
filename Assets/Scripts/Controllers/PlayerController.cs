@@ -13,6 +13,8 @@ public class PlayerController : Controller
     public KeyCode rotateUpKey;
     public KeyCode rotateDownKey;
     public KeyCode boost;
+    public float score;
+    public float lives;
     // List that holds our players
     public List<PlayerController> players;
 
@@ -29,6 +31,8 @@ public class PlayerController : Controller
                 GameManager.instance.players.Add(this);
             }
         }
+
+        score = 0;
         //Run the start function from the parent(base) class
         base.Start();
         
@@ -43,6 +47,10 @@ public class PlayerController : Controller
         base.Update();
     }
 
+    public override void AddToScore()
+    {
+        score += 100;
+    }
     public override void ProcessInputs()
     {
         if (Input.GetKey(moveForwardKey))

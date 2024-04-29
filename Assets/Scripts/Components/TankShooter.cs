@@ -27,7 +27,7 @@ public class TankShooter : Shooter
 
     public override void Shoot(GameObject Bullet, float fireForce, float damageDone, float lifespan)
     {
-        Debug.Log("Shooting!");
+        
         // Instantiate our projectile
         GameObject newShell = Instantiate(Bullet, firepointTransform.position, firepointTransform.rotation) as GameObject;
         // Get the DamageOnHit component
