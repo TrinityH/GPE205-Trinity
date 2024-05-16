@@ -792,6 +792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pawn: {fileID: 562878884}
+  score: 0
   currentState: 7
   target: {fileID: 0}
   fleeDistance: 0
@@ -1288,6 +1289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pawn: {fileID: 1002241208}
+  score: 0
   currentState: 7
   target: {fileID: 0}
   fleeDistance: 20
@@ -1351,7 +1353,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8743ed3a7761c5489e25efba6df1bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSpawnTransform: {fileID: 0}
+  playerControllerPrefab: {fileID: 0}
+  tankPawnPrefab: {fileID: 0}
+  patrolPawnPrefab: {fileID: 0}
+  patrolAIControllerPrefab: {fileID: 0}
   players: []
+  spawnPoints: []
+  mapGenerator: {fileID: 0}
   TitleScreenStateObject: {fileID: 0}
   MainMenuStateObject: {fileID: 0}
   OptionsScreenStateObject: {fileID: 0}
@@ -1691,6 +1700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pawn: {fileID: 1212278660}
+  score: 0
   currentState: 3
   target: {fileID: 0}
   fleeDistance: 10
@@ -2331,6 +2341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pawn: {fileID: 1623056122}
+  score: 0
   currentState: 7
   target: {fileID: 0}
   fleeDistance: 10
@@ -2901,7 +2912,7 @@ PrefabInstance:
     - target: {fileID: 6878578800087707872, guid: 8dd23caa40e84c348913485164a258df,
         type: 3}
       propertyPath: m_Mass
-      value: 5000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6878578800087707872, guid: 8dd23caa40e84c348913485164a258df,
         type: 3}
@@ -2921,7 +2932,7 @@ PrefabInstance:
     - target: {fileID: 6878578800087707875, guid: 8dd23caa40e84c348913485164a258df,
         type: 3}
       propertyPath: boostSpeed
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6878578800087707875, guid: 8dd23caa40e84c348913485164a258df,
         type: 3}
@@ -2958,6 +2969,11 @@ PrefabInstance:
         type: 3}
       propertyPath: lives
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878578800087707877, guid: 8dd23caa40e84c348913485164a258df,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6878578800087707900, guid: 8dd23caa40e84c348913485164a258df,
         type: 3}

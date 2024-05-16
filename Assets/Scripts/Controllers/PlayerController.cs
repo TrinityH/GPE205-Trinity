@@ -13,7 +13,6 @@ public class PlayerController : Controller
     public KeyCode rotateUpKey;
     public KeyCode rotateDownKey;
     public KeyCode boost;
-    public float score;
     public float lives;
     // List that holds our players
     public List<PlayerController> players;
@@ -32,6 +31,8 @@ public class PlayerController : Controller
             }
         }
 
+        
+
         score = 0;
         //Run the start function from the parent(base) class
         base.Start();
@@ -47,9 +48,9 @@ public class PlayerController : Controller
         base.Update();
     }
 
-    public override void AddToScore()
+    public override void AddToScore(float scoreToAdd)
     {
-        score += 100;
+        score += scoreToAdd;
     }
     public override void ProcessInputs()
     {
@@ -93,6 +94,7 @@ public class PlayerController : Controller
         {
             pawn.Shoot();
             pawn.MakeNoise();
+            
         }
 
         if (Input.GetKeyDown(boost))
@@ -110,6 +112,7 @@ public class PlayerController : Controller
         {
             pawn.StopNoise();
         }
+
 
     }
 

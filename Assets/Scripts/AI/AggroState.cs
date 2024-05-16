@@ -17,7 +17,7 @@ public class AggroState : AIController
                     ChangeState(AIStates.Seek);
                     ChangeState(AIStates.ChooseTarget);
                 }
-                if (IsCanHear(target) == true || IsCanSee(target) == true && !IsDistanceLessThan(target, fleeDistance))
+                if (IsHasTarget() == true && IsCanHear(target) == true || IsCanSee(target) == true && !IsDistanceLessThan(target, fleeDistance))
                 {
                     ChangeState(AIStates.Attack);
                 }

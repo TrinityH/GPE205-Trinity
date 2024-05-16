@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public abstract class Pawn : MonoBehaviour
 {
     public float fireRate;
@@ -9,12 +9,19 @@ public abstract class Pawn : MonoBehaviour
     public float turnSpeed;
     public float boostSpeed;
     public Mover mover;
+    public Rigidbody rb;
+    public Vector3 com;
+    public AudioSource cannon;
+    public Image healthbar;
     // Start is called before the first frame update
     public virtual void Start()
     {
         mover = GetComponent<Mover>();
         shooter = GetComponent<Shooter>();
         noiseMaker = GetComponent<NoiseMaker>();
+        rb = GetComponent<Rigidbody>();
+        healthbar = GetComponentInChildren<Image>();
+        rb.centerOfMass = com;
     }
 
     // Update is called once per frame

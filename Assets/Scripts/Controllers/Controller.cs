@@ -6,6 +6,7 @@ public abstract class Controller : MonoBehaviour
 {
 
     public Pawn pawn;
+    public float score;
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -43,9 +44,9 @@ public abstract class Controller : MonoBehaviour
 
     }
 
-    public virtual void AddToScore()
+    public virtual void AddToScore(float scoreToAdd)
     {
-
+        score += scoreToAdd;
     }
 
     

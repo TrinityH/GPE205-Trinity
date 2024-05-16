@@ -51,7 +51,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerup:
-    healthToAdd: 50
+    duration: 0
+    isPermanent: 0
+    healthToAdd: 100
   particleEffect: {fileID: 3937677403663161886, guid: a2ca99b358eca9e42ad48a64cdd9f7d3,
     type: 3}
 --- !u!65 &284554811130691388

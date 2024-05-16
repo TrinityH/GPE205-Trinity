@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TankPawn : Pawn
 {
@@ -9,6 +10,8 @@ public class TankPawn : Pawn
     // Start is called before the first frame update
     public override void Start()
     {
+        //healthbar = GetComponentInChildren<Image>();
+
         float secondsPerShot;
 
         if(fireRate <= 0)
@@ -70,6 +73,8 @@ public class TankPawn : Pawn
         {
             shooter.Shoot(Bullet, fireForce, damageDone, shellLifespan);
             nextEventTime = Time.time + timerDelay;
+            cannon = GetComponent<AudioSource>();
+            cannon.Play();
         }
         
     }

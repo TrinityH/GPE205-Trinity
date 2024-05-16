@@ -17,9 +17,10 @@ GameObject:
   - component: {fileID: 6422243916648214313}
   - component: {fileID: 6422243916648214325}
   - component: {fileID: 6422243916648214326}
-  - component: {fileID: 456545994037952878}
+  - component: {fileID: 7283499748474702918}
+  - component: {fileID: 3239080328154727488}
   m_Layer: 0
-  m_Name: AITank
+  m_Name: AIPatrol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +33,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3026851911049928334}
-  m_LocalRotation: {x: -0, y: -0.99834603, z: -0, w: -0.05749074}
+  m_LocalRotation: {x: 0.022646781, y: 0.35771966, z: -0.008678177, w: 0.93351406}
   m_LocalPosition: {x: 14.172795, y: 0.06999999, z: 17.412628}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -143,14 +144,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21416d50de04c7948bba87df79608601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  turnSpeed: 50
+  fireRate: 2
+  moveSpeed: 5
+  turnSpeed: 200
+  boostSpeed: 0
   mover: {fileID: 6422243916648214312}
+  rb: {fileID: 6422243916648214314}
+  com: {x: 0, y: 0, z: 0}
+  cannon: {fileID: 0}
+  healthbar: {fileID: 0}
   Bullet: {fileID: 3597549463102201254, guid: c5fd48739806158459fa7ffc8521167a, type: 3}
   fireForce: 1000
   damageDone: 10
   shellLifespan: 1.5
   shooter: {fileID: 6422243916648214326}
+  noiseMaker: {fileID: 0}
+  noiseMakerVolume: 0
 --- !u!114 &6422243916648214325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,8 +187,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firepointTransform: {fileID: 5911217822966024158}
-  TimerDelay: 3
---- !u!114 &456545994037952878
+--- !u!82 &7283499748474702918
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3026851911049928334}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: bb2e2714f962491428dcb0b38598b251, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &3239080328154727488
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,15 +292,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3026851911049928334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 937dd7b949ff0c54e88a127cb6a7c135, type: 3}
+  m_Script: {fileID: 11500000, guid: bbf835851d5c4b6419db8fbaade4e124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawn: {fileID: 6422243916648214313}
-  currentState: 7
-  target: {fileID: 0}
-  fleeDistance: 0
-  waypoints: []
-  waypointStopDistance: 0
 --- !u!1 &5911217822966024152
 GameObject:
   m_ObjectHideFlags: 0
